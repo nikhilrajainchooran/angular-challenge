@@ -1,0 +1,60 @@
+<section class="search-form-container mat-elevation-z2">
+  <h1 class="search-title">Flight Search</h1>
+
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" role="search">
+    <fieldset>
+      <mat-radio-group
+        formControlName="type"
+        aria-label="Search type selection"
+      >
+        <mat-radio-button value="aircraft">Aircraft Registration</mat-radio-button>
+        <mat-radio-button value="callsign">Callsign</mat-radio-button>
+      </mat-radio-group>
+    </fieldset>
+
+    <div class="input-section">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>
+          {{
+            searchForm.get("type")?.value === "aircraft"
+              ? "Aircraft Registration(s)"
+              : "Flight Callsign(s)"
+          }}
+        </mat-label>
+
+        <mat-chip-grid #chipList aria-label="Search values">
+          @for (value of values; track value) {
+            <mat-chip-row
+              [removable]="true"
+              (removed)="removeSearchValue(value)"
+            >
+              {{ value }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip-row>
+          }
+          <input
+            placeholder="Type and press Enter"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="true"
+            (matChipInputTokenEnd)="addSearchValue($event)"
+          />
+        </mat-chip-grid>
+      </mat-form-field>
+    </div>
+
+    <button
+      mat-raised-button
+      class="search-button"
+      type="submit"
+      [disabled]="values.length === 0 || isLoading()"
+      aria-label="Submit search"
+    >
+      @if (!isLoading()) {
+        <span>Search</span>
+      } @else {
+        <mat-spinner diameter="20" color="accent"></mat-spinner>
+      }
+    </button>
+  </form>
+</section>
