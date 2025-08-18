@@ -12,6 +12,14 @@ Demo Link: https://coruscating-faun-b29a1d.netlify.app/
 
 ---
 
+## Screenshots
+
+![Search Form](./src/assets/screenshots/1.png)
+![Search Results](./src/assets/screenshots/2.png)
+![Error Page](./src/assets/screenshots/3.png)
+
+---
+
 ## Requirements
 
 - A form with two elements:
@@ -117,5 +125,5 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 
-- [Development Guide](./Development.md)
+- [Development Guide](./DEVELOPMENT.md)
 - [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli)
