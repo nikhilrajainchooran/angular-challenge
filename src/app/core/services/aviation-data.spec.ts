@@ -78,4 +78,24 @@ describe('AviationDataService', () => {
       { status: 404, statusText: 'Not Found' },
     );
   });
+
+  describe('Error Handling', () => {
+    it('should use custom error messages when available', () => {
+      service.fetchByCallsign('TEST').subscribe(result => {
+        expect((result as any).error.message).toBe('Custom message');
+      });
+
+      httpMock.expectOne(`${baseUrl}/callsign/TEST`)
+        .flush({ message: 'Custom message' }, { status: 500 });
+    });
+
+    it('should fall back to default message when no custom message exists', () => {
+      service.fetchByCallsign('TEST').subscribe(result => {
+        expect((result as any).error.message).toBe('An unexpected error occurred.');
+      });
+
+      httpMock.expectOne(`${baseUrl}/callsign/TEST`)
+        .flush({}, { status: 500 });
+    });
+  });
 });

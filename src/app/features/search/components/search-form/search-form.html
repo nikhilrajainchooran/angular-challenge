@@ -1,8 +1,9 @@
-<section class="search-form-container mat-elevation-z2">
-  <h1 class="search-title">Flight Search</h1>
 
+
+<section class="search-form-container mat-elevation-z2">
   <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" role="search">
     <fieldset>
+     <strong>Search Type:</strong> 
       <mat-radio-group
         formControlName="type"
         aria-label="Search type selection"

@@ -2,15 +2,9 @@
   background: var(--tm-white);
   border-radius: 12px;
   padding: 24px;
-  margin: 24px auto;
 }
 
-.search-title {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--tm-blue);
-  margin-bottom: 16px;
-}
+
 
 .results-container {
   background: #fafafa;
@@ -47,6 +41,10 @@ fieldset {
   border: none;
   padding: 0;
   margin: 16px 0;
+}
+
+mat-card{
+  background-color: var(--tm-white);
 }
 
 mat-chip-row {

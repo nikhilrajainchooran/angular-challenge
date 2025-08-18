@@ -49,10 +49,10 @@ export class SearchResults {
     if (errors.length) setTimeout(() => this.failedErrors.emit(errors));
 
     return data.map((item) => {
-      const ac = item.response.aircraft;
+      const aircraft = item.response.aircraft;
       return {
-        ...ac,
-        image: ac.url_photo_thumbnail || '/assets/placeholder.png',
+        ...aircraft,
+        image: aircraft.url_photo_thumbnail || '/assets/placeholder.png',
       };
     });
   });
@@ -73,12 +73,12 @@ export class SearchResults {
     if (errors.length) setTimeout(() => this.failedErrors.emit(errors));
 
     return data.map((item) => {
-      const fr = item.response.flightroute;
+      const callsign = item.response.flightroute;
       return {
-        airline: fr.airline?.name || 'N/A',
-        callsign: fr.callsign,
-        origin: fr.origin?.name || 'N/A',
-        destination: fr.destination?.name || 'N/A',
+        airline: callsign.airline?.name || 'N/A',
+        callsign: callsign.callsign,
+        origin: callsign.origin?.name || 'N/A',
+        destination: callsign.destination?.name || 'N/A',
       };
     });
   });

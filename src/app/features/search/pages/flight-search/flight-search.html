@@ -1,24 +1,24 @@
 <section class="content">
-  <mat-card class="px-4">
+
+  <div>
+    <h1 class="search-title">Flight Search</h1>
+    <p>Search for aircraft details by registration or track a flight route by call sign.</p>
+  </div>
+  <mat-card>
     <app-search-form (searchSubmitted)="handleSearch($event)"></app-search-form>
   </mat-card>
 
   @if (isLoading()) {
-    <div class="loading-container" role="status" aria-live="polite">
-      <mat-spinner aria-label="Loading search results"></mat-spinner>
-    </div>
+  <div class="loading-container" role="status" aria-live="polite">
+    <mat-spinner aria-label="Loading search results"></mat-spinner>
+  </div>
   }
 
   <section class="search-results">
     @if (!isLoading() && hasSearched()) {
-      <app-search-results
-        [searchResults]="searchResults()"
-        [searchType]="currentSearchType()"
-        (failedErrors)="handleFailedResults($event)"
-        role="region"
-        aria-label="Search results"
-      >
-      </app-search-results>
+    <app-search-results [searchResults]="searchResults()" [searchType]="currentSearchType()"
+      (failedErrors)="handleFailedResults($event)" role="region" aria-label="Search results">
+    </app-search-results>
     }
   </section>
 </section>
