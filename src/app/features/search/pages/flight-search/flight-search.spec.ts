@@ -16,9 +16,7 @@ describe('SearchPage', () => {
   let snackBar: jasmine.SpyObj<MatSnackBar>;
 
   beforeEach(async () => {
-    const aviationSpy = jasmine.createSpyObj('AviationDataService', [
-      'fetchMultipleRecords',
-    ]);
+    const aviationSpy = jasmine.createSpyObj('AviationDataService', ['fetchMultipleRecords']);
     const snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
 
     await TestBed.configureTestingModule({
@@ -34,9 +32,7 @@ describe('SearchPage', () => {
 
     fixture = TestBed.createComponent(FlightSearch);
     component = fixture.componentInstance;
-    aviationService = TestBed.inject(
-      AviationDataService,
-    ) as jasmine.SpyObj<AviationDataService>;
+    aviationService = TestBed.inject(AviationDataService) as jasmine.SpyObj<AviationDataService>;
     snackBar = TestBed.inject(MatSnackBar) as jasmine.SpyObj<MatSnackBar>;
   });
 
@@ -71,8 +67,6 @@ describe('SearchPage', () => {
     component.searchResults.set([mockAircraftResult]);
     fixture.detectChanges();
 
-    expect(
-      fixture.nativeElement.querySelector('app-search-results'),
-    ).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('app-search-results')).toBeTruthy();
   });
 });

@@ -8,4 +8,4 @@ import { COMMON_MATERIAL_MODULES } from '../../modules/material.modules';
   styleUrl: './navbar.scss',
   templateUrl: './navbar.html',
 })
-export class Navbar { }
+export class Navbar {}

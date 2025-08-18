@@ -8,5 +8,5 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   templateUrl: './footer.html',
 })
 export class Footer {
-    protected readonly currentYear = new Date().getFullYear();
+  protected readonly currentYear = new Date().getFullYear();
 }

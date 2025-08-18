@@ -66,6 +66,5 @@ describe('SearchForm', () => {
     (component as any).isLoading.set(true);
     fixture.detectChanges();
     expect(button().disabled).toBeTrue();
-
   });
 });

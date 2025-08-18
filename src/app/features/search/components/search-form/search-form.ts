@@ -1,12 +1,6 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  input,
-  output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -38,7 +32,7 @@ export class SearchForm {
   searchForm: FormGroup;
   private formBuilder = inject(FormBuilder);
 
-  separatorKeysCodes: number[] = [ENTER, COMMA];
+  separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   values: string[] = [];
 
   constructor() {

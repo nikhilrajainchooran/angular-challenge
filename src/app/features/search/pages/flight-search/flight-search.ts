@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SearchResult } from '../../../../core/models/api-response.model';
 import { AviationDataService } from '../../../../core/services/aviation-data';
@@ -15,12 +10,7 @@ import { SearchResults } from '../../components/search-results/search-results';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    ...SEARCH_MATERIAL_MODULES,
-    SearchForm,
-    SearchResults,
-  ],
+  imports: [CommonModule, ...SEARCH_MATERIAL_MODULES, SearchForm, SearchResults],
   selector: 'app-flight-search',
   styleUrl: './flight-search.scss',
   templateUrl: './flight-search.html',

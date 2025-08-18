@@ -19,7 +19,7 @@ export const SEARCH_MATERIAL_MODULES = [
   MatProgressSpinnerModule,
   MatRadioModule,
   MatSnackBarModule,
-] as const;
+];
 
 export const COMMON_MATERIAL_MODULES = [
   MatButtonModule,
@@ -33,4 +33,4 @@ export const COMMON_MATERIAL_MODULES = [
   MatSnackBarModule,
   MatTableModule,
   MatToolbarModule,
-] as const;
+];

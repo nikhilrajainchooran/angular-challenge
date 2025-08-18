@@ -34,24 +34,19 @@ export class AviationDataService {
   }
 
   fetchByCallsign(callsign: string): Observable<CallsignResponse | ErrorResult> {
-    return this.http
-      .get<CallsignResponse>(`${this.apiBaseUrl}/callsign/${callsign}`)
-      .pipe(
-        catchError((error) =>
-          of({
-            error: {
-              message: this.extractErrorMessage(error),
-              status: error.status,
-            },
-          } as ErrorResult),
-        ),
-      );
+    return this.http.get<CallsignResponse>(`${this.apiBaseUrl}/callsign/${callsign}`).pipe(
+      catchError((error) =>
+        of({
+          error: {
+            message: this.extractErrorMessage(error),
+            status: error.status,
+          },
+        } as ErrorResult),
+      ),
+    );
   }
 
-  fetchMultipleRecords(
-    type: SearchType,
-    searchValues: string[],
-  ): Observable<SearchResult[]> {
+  fetchMultipleRecords(type: SearchType, searchValues: string[]): Observable<SearchResult[]> {
     const searchRequests = searchValues.map((value) =>
       type === 'aircraft'
         ? this.fetchAircraftByRegistration(value.trim())

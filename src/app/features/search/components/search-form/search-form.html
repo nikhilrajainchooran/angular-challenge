@@ -1,13 +1,8 @@
-
-
 <section class="search-form-container mat-elevation-z2">
   <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" role="search">
     <fieldset>
-     <strong>Search Type:</strong> 
-      <mat-radio-group
-        formControlName="type"
-        aria-label="Search type selection"
-      >
+      <strong>Search Type:</strong>
+      <mat-radio-group formControlName="type" aria-label="Search type selection">
         <mat-radio-button value="aircraft">Aircraft Registration</mat-radio-button>
         <mat-radio-button value="callsign">Callsign</mat-radio-button>
       </mat-radio-group>
@@ -17,18 +12,15 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>
           {{
-            searchForm.get("type")?.value === "aircraft"
-              ? "Aircraft Registration(s)"
-              : "Flight Callsign(s)"
+            searchForm.get('type')?.value === 'aircraft'
+              ? 'Aircraft Registration(s)'
+              : 'Flight Callsign(s)'
           }}
         </mat-label>
 
         <mat-chip-grid #chipList aria-label="Search values">
           @for (value of values; track value) {
-            <mat-chip-row
-              [removable]="true"
-              (removed)="removeSearchValue(value)"
-            >
+            <mat-chip-row [removable]="true" (removed)="removeSearchValue(value)">
               {{ value }}
               <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip-row>

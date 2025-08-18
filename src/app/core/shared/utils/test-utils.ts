@@ -1,8 +1,4 @@
-import {
-  AircraftResponse,
-  CallsignResponse,
-  ErrorResult,
-} from '../../models/api-response.model';
+import { AircraftResponse, CallsignResponse, ErrorResult } from '../../models/api-response.model';
 
 export const mockAircraftResult: AircraftResponse = {
   response: {

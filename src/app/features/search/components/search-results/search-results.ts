@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-  output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 
 import {
@@ -20,11 +14,7 @@ import { SEARCH_MATERIAL_MODULES } from '../../../../shared/modules/material.mod
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-search-results',
-  imports: [
-    CommonModule,
-    ...SEARCH_MATERIAL_MODULES,
-    MatTableModule,
-  ],
+  imports: [CommonModule, ...SEARCH_MATERIAL_MODULES, MatTableModule],
   styleUrl: './search-results.scss',
   templateUrl: './search-results.html',
 })

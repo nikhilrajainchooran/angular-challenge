@@ -1,8 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { AviationDataService } from './aviation-data';
 
@@ -55,47 +52,43 @@ describe('AviationDataService', () => {
       expect((result as any).error.message).toContain('not found');
     });
 
-    httpMock.expectOne(`${baseUrl}/aircraft/INVALID`).flush(
-      {},
-      { status: 404, statusText: 'Not Found' },
-    );
+    httpMock
+      .expectOne(`${baseUrl}/aircraft/INVALID`)
+      .flush({}, { status: 404, statusText: 'Not Found' });
   });
 
   it('should fetch multiple records and handle mixed results', () => {
     const goodResponse = { response: { aircraft: { registration: 'N123AB' } } };
 
-    service
-      .fetchMultipleRecords('aircraft', ['N123AB', 'INVALID'])
-      .subscribe((results) => {
-        expect(results.length).toBe(2);
-        expect('response' in results[0]).toBeTrue();
-        expect('error' in results[1]).toBeTrue();
-      });
+    service.fetchMultipleRecords('aircraft', ['N123AB', 'INVALID']).subscribe((results) => {
+      expect(results.length).toBe(2);
+      expect('response' in results[0]).toBeTrue();
+      expect('error' in results[1]).toBeTrue();
+    });
 
     httpMock.expectOne(`${baseUrl}/aircraft/N123AB`).flush(goodResponse);
-    httpMock.expectOne(`${baseUrl}/aircraft/INVALID`).flush(
-      {},
-      { status: 404, statusText: 'Not Found' },
-    );
+    httpMock
+      .expectOne(`${baseUrl}/aircraft/INVALID`)
+      .flush({}, { status: 404, statusText: 'Not Found' });
   });
 
   describe('Error Handling', () => {
     it('should use custom error messages when available', () => {
-      service.fetchByCallsign('TEST').subscribe(result => {
+      service.fetchByCallsign('TEST').subscribe((result) => {
         expect((result as any).error.message).toBe('Custom message');
       });
 
-      httpMock.expectOne(`${baseUrl}/callsign/TEST`)
+      httpMock
+        .expectOne(`${baseUrl}/callsign/TEST`)
         .flush({ message: 'Custom message' }, { status: 500 });
     });
 
     it('should fall back to default message when no custom message exists', () => {
-      service.fetchByCallsign('TEST').subscribe(result => {
+      service.fetchByCallsign('TEST').subscribe((result) => {
         expect((result as any).error.message).toBe('An unexpected error occurred.');
       });
 
-      httpMock.expectOne(`${baseUrl}/callsign/TEST`)
-        .flush({}, { status: 500 });
+      httpMock.expectOne(`${baseUrl}/callsign/TEST`).flush({}, { status: 500 });
     });
   });
 });
