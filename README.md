@@ -8,7 +8,7 @@ Fork this repository, create an Angular-based project (preferably using Angular 
 Access aircraft data from the [ADSBdb API](https://www.adsbdb.com/) and display it in the browser.  
 You should be able to search for aircraft by their registration code (to get details about the plane) or by their callsign (to get routing information).
 
-Demo Link: https://68a30fdf2f56641ca6872413--coruscating-faun-b29a1d.netlify.app/
+Demo Link: https://coruscating-faun-b29a1d.netlify.app/
 
 ---
 
