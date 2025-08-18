@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { COMMON_MATERIAL_MODULES } from '../../modules/material.modules';
 
 @Component({

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { SearchResult } from '../../../../core/models/api-response.model';
 import { AviationDataService } from '../../../../core/services/aviation-data';
 import { SearchType } from '../../../../core/types/search.types';

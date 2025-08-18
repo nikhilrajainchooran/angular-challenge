@@ -1,15 +1,16 @@
 <section class="content">
-  <div>
+  <div class="header">
     <h1 class="search-title">Flight Search</h1>
     <p>Search for aircraft details by registration or track a flight route by call sign.</p>
   </div>
+
   <mat-card>
-    <app-search-form (searchSubmitted)="handleSearch($event)"></app-search-form>
+    <app-search-form (searchSubmitted)="handleSearch($event)" />
   </mat-card>
 
   @if (isLoading()) {
     <div class="loading-container" role="status" aria-live="polite">
-      <mat-spinner aria-label="Loading search results"></mat-spinner>
+      <mat-spinner diameter="60" strokeWidth="5" aria-label="Loading search results"></mat-spinner>
     </div>
   }
 
@@ -21,8 +22,7 @@
         (failedErrors)="handleFailedResults($event)"
         role="region"
         aria-label="Search results"
-      >
-      </app-search-results>
+      />
     }
   </section>
 </section>

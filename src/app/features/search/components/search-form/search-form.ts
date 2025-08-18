@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+
 import { SearchFormValue } from '../../../../core/types/search.types';
 import { SEARCH_MATERIAL_MODULES } from '../../../../shared/modules/material.modules';
 
