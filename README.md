@@ -18,6 +18,11 @@ Demo Link: https://coruscating-faun-b29a1d.netlify.app/
 ![Search Results](./src/assets/screenshots/2.png)
 ![Error Page](./src/assets/screenshots/3.png)
 
+### Code Coverage
+
+![Code Coverage](./src/assets/screenshots/code-coverage.png)
+
+
 ---
 
 ## Requirements
