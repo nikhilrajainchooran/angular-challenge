@@ -42,7 +42,7 @@ export class SearchResults {
       const aircraft = item.response.aircraft;
       return {
         ...aircraft,
-        image: aircraft.url_photo_thumbnail || '/assets/placeholder.png',
+        image: aircraft.url_photo_thumbnail || 'assets/placeholder.png',
       };
     });
   });
