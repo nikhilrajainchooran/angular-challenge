@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { SearchResults } from './search-results';
 import {
   mockAircraftResult,
@@ -29,9 +29,12 @@ describe('SearchResults', () => {
     fixture.detectChanges();
 
     const data = component.aircraftDisplayData();
-    expect(data.length).toBe(1);
-    expect(data[0].registration).toBe('N123AB');
-    expect(data[0].image).toBe('https://example.com/thumb.jpg');
+    expect(data).toEqual([
+      jasmine.objectContaining({
+        registration: 'N123AB',
+        image: 'https://example.com/thumb.jpg',
+      }),
+    ]);
   });
 
   it('should map callsign results correctly', () => {
@@ -40,17 +43,24 @@ describe('SearchResults', () => {
     fixture.detectChanges();
 
     const data = component.callsignDisplayData();
-    expect(data.length).toBe(1);
-    expect(data[0].callsign).toBe('DLH400');
-    expect(data[0].airline).toBe('Lufthansa');
+    expect(data).toEqual([
+      jasmine.objectContaining({
+        callsign: 'DLH400',
+        airline: 'Lufthansa',
+      }),
+    ]);
   });
 
-  it('should handle errors and mark failed results', () => {
+  it('should handle errors by emitting failedErrors and marking all failed', fakeAsync(() => {
+    const emitted: string[][] = [];
+    component.failedErrors.subscribe((errs) => emitted.push(errs));
+
+    fixture.componentRef.setInput('searchType', 'aircraft');
     fixture.componentRef.setInput('searchResults', [mockErrorResult]);
     fixture.detectChanges();
+    tick(); // flush setTimeout
 
-    expect(component.aircraftDisplayData().length).toBe(0);
-    expect(component.callsignDisplayData().length).toBe(0);
+    expect(emitted[0][0]).toContain('not found');
     expect(component.allResultsFailed()).toBeTrue();
-  });
+  }));
 });

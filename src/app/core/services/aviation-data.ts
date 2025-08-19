@@ -58,8 +58,6 @@ export class AviationDataService {
   private extractErrorMessage(error: any): string {
     if (error.status === 404) {
       return 'The requested data was not found.';
-    } else if (error.status === 0) {
-      return 'Network error. Please check your connection.';
     } else {
       return error.error?.message || 'An unexpected error occurred.';
     }

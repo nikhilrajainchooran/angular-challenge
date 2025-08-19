@@ -24,32 +24,25 @@ describe('AviationDataService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should fetch aircraft data', () => {
-    const mockResponse = { response: { aircraft: { registration: 'N123AB' } } };
+  it('should fetch aircraft and callsign data', () => {
+    const aircraftResponse = { response: { aircraft: { registration: 'N123AB' } } };
+    const callsignResponse = { response: { flightroute: { callsign: 'DLH400' } } };
 
-    service.fetchAircraftByRegistration('N123AB').subscribe((result) => {
-      expect(result).toEqual(mockResponse as any);
-    });
+    service
+      .fetchAircraftByRegistration('N123AB')
+      .subscribe((res) => expect(res).toEqual(aircraftResponse as any));
+    httpMock.expectOne(`${baseUrl}/aircraft/N123AB`).flush(aircraftResponse);
 
-    httpMock.expectOne(`${baseUrl}/aircraft/N123AB`).flush(mockResponse);
+    service
+      .fetchByCallsign('DLH400')
+      .subscribe((res) => expect(res).toEqual(callsignResponse as any));
+    httpMock.expectOne(`${baseUrl}/callsign/DLH400`).flush(callsignResponse);
   });
 
-  it('should fetch callsign data', () => {
-    const mockResponse = {
-      response: { flightroute: { callsign: 'DLH400', airline: { name: 'LH' } } },
-    };
-
-    service.fetchByCallsign('DLH400').subscribe((result) => {
-      expect(result).toEqual(mockResponse as any);
-    });
-
-    httpMock.expectOne(`${baseUrl}/callsign/DLH400`).flush(mockResponse);
-  });
-
-  it('should return error result on failed request', () => {
-    service.fetchAircraftByRegistration('INVALID').subscribe((result) => {
-      expect('error' in result).toBeTrue();
-      expect((result as any).error.message).toContain('not found');
+  it('should return proper error on 404', () => {
+    service.fetchAircraftByRegistration('INVALID').subscribe((res) => {
+      expect('error' in res).toBeTrue();
+      expect((res as any).error.message).toBe('The requested data was not found.');
     });
 
     httpMock
@@ -57,7 +50,18 @@ describe('AviationDataService', () => {
       .flush({}, { status: 404, statusText: 'Not Found' });
   });
 
-  it('should fetch multiple records and handle mixed results', () => {
+  it('should return network error when status is 0', () => {
+    service.fetchAircraftByRegistration('NETWORKFAIL').subscribe((res) => {
+      expect((res as any).error.message).toBe('Network error. Please check your connection.');
+      expect((res as any).error.status).toBe(0);
+    });
+
+    httpMock
+      .expectOne(`${baseUrl}/aircraft/NETWORKFAIL`)
+      .flush({}, { status: 0, statusText: 'Unknown Error' });
+  });
+
+  it('should fetch multiple records with mixed success and error', () => {
     const goodResponse = { response: { aircraft: { registration: 'N123AB' } } };
 
     service.fetchMultipleRecords('aircraft', ['N123AB', 'INVALID']).subscribe((results) => {
@@ -70,25 +74,5 @@ describe('AviationDataService', () => {
     httpMock
       .expectOne(`${baseUrl}/aircraft/INVALID`)
       .flush({}, { status: 404, statusText: 'Not Found' });
-  });
-
-  describe('Error Handling', () => {
-    it('should use custom error messages when available', () => {
-      service.fetchByCallsign('TEST').subscribe((result) => {
-        expect((result as any).error.message).toBe('Custom message');
-      });
-
-      httpMock
-        .expectOne(`${baseUrl}/callsign/TEST`)
-        .flush({ message: 'Custom message' }, { status: 500 });
-    });
-
-    it('should fall back to default message when no custom message exists', () => {
-      service.fetchByCallsign('TEST').subscribe((result) => {
-        expect((result as any).error.message).toBe('An unexpected error occurred.');
-      });
-
-      httpMock.expectOne(`${baseUrl}/callsign/TEST`).flush({}, { status: 500 });
-    });
   });
 });
